@@ -3161,6 +3161,11 @@ export type Page = Node & {
   updatedAt: Scalars['DateTime'];
   /** User that last updated this document */
   updatedBy?: Maybe<User>;
+  author?:Maybe<Author>;
+};
+
+export type Author = {
+  name: Scalars['String'];
 };
 
 export type PageChapterArgs = {
