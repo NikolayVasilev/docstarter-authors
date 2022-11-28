@@ -5,6 +5,7 @@ import type {
   GetPageQuery,
   Page,
   EmbeddedPageFragment,
+  GetPageQueryNoRemote,
 } from '~/generated/schema.server';
 import { Heading } from './heading';
 import { Link } from './link';
@@ -12,12 +13,19 @@ import { Link } from './link';
 type PageProps = GetPageQuery['page'];
 
 export const RichTextView = ({ page }: { page: PageProps }) => {
+  var link = page?.author?.gitHubUserDetails?.html_url;
+
+  if(page?.author?.gitHubUserId === 'test'){
+    link = './';
+  }
+
   return (
     <div className="prose prose-indigo max-w-none prose-h1:font-light prose-h1:text-indigo-700">
       <h1>{page?.title}</h1>
-      <Link href={`${page?.author?.gitHubUserDetails?.html_url}`}>
-                  <h5>{page?.author?.name} </h5>
-              </Link>
+      <Link href={`${link}`}>
+          <h5>{page?.author?.name} </h5>
+      </Link>
+
       <RichText
         content={page?.content?.json}
         references={page?.content?.references as EmbedReferences}

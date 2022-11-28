@@ -22,6 +22,7 @@ fragment Page on Page {
   }
   author {
     name
+    gitHubUserId
     gitHubUserDetails{
       html_url
     }
