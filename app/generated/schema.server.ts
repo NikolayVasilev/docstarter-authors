@@ -3164,10 +3164,6 @@ export type Page = Node & {
   author?:Maybe<Author>;
 };
 
-export type Author = {
-  name: Scalars['String'];
-};
-
 export type PageChapterArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
@@ -5058,6 +5054,33 @@ export type Seo = Node & {
   updatedBy?: Maybe<User>;
 };
 
+export type Author = Node & {
+  __typename?: 'Seo';
+  /** The time the document was created */
+  createdAt: Scalars['DateTime'];
+  /** User that created this document */
+  createdBy?: Maybe<User>;
+  description?: Maybe<Scalars['String']>;
+  /** Get the document in other stages */
+  documentInStages: Array<Seo>;
+  /** List of Seo versions */
+  history: Array<Version>;
+  /** The unique identifier */
+  id: Scalars['ID'];
+  /** The time the document was published. Null on documents in draft stage. */
+  publishedAt?: Maybe<Scalars['DateTime']>;
+  /** User that last published this document */
+  publishedBy?: Maybe<User>;
+  scheduledIn: Array<ScheduledOperation>;
+  /** System stage field */
+  stage: Stage;
+  /** The time the document was updated */
+  updatedAt: Scalars['DateTime'];
+  /** User that last updated this document */
+  updatedBy?: Maybe<User>;
+  name: Scalars['String'];
+};
+
 export type SeoCreatedByArgs = {
   locales?: InputMaybe<Array<Locale>>;
 };
@@ -6091,6 +6114,18 @@ export type GetPageQuery = {
             }
           | null
           | undefined;
+        author?:
+            | {
+              __typename?: 'Author';
+              name?: string | null | undefined;
+              gitHubUserDetails?: {
+                html_url? : string | null | undefined;
+              }
+              | null
+              | undefined;
+            }
+            | null
+            | undefined;
       }
     | null
     | undefined;
@@ -6125,6 +6160,18 @@ export type PageFragment = {
         noindex?: boolean | null | undefined;
         image?: { __typename?: 'Asset'; url: string } | null | undefined;
       }
+    | null
+    | undefined;
+  author?:
+    | {
+      __typename?: 'Author';
+      name?: string | null | undefined;
+      gitHubUserDetails?: {
+        html_url? : string | null | undefined;
+      }
+      | null
+      | undefined;
+    }
     | null
     | undefined;
 };
@@ -6188,6 +6235,12 @@ export const PageFragmentDoc = gql`
       noindex
       image {
         url
+      }
+    }
+    author {
+      name
+      gitHubUserDetails{
+        html_url
       }
     }
   }

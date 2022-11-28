@@ -15,7 +15,9 @@ export const RichTextView = ({ page }: { page: PageProps }) => {
   return (
     <div className="prose prose-indigo max-w-none prose-h1:font-light prose-h1:text-indigo-700">
       <h1>{page?.title}</h1>
-      <h5>{page?.author?.name}</h5>
+      <Link href={`${page?.author?.gitHubUserDetails?.html_url}`}>
+                  <h5>{page?.author?.name} </h5>
+              </Link>
       <RichText
         content={page?.content?.json}
         references={page?.content?.references as EmbedReferences}
