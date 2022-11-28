@@ -20,4 +20,10 @@ fragment Page on Page {
       url
     }
   }
+  author {
+    name
+    gitHubUserDetails{
+      url
+    }
+  }
 }
